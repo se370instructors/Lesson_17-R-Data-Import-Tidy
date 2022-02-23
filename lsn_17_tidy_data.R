@@ -1,7 +1,7 @@
 ## SE370 AY22-2
 ## Lesson 17: Data Import and Tidy Data
 
-library(tidyverse)
+
 library(tidyr)
 library(readr)
 library(jsonlite)
@@ -67,7 +67,7 @@ sit_up <- c(88,64,70,100,96)
 
 
 
-# Tidy the dataset using gather().
+# Tidy the dataset using pivot_longer().
 # Consolidate all the week columns into a single column
 
 

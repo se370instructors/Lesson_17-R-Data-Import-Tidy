@@ -1,7 +1,8 @@
 ## SE370 AY22-2
 ## Lesson 17: Data Import and Tidy Data
+setwd("C:/Users/jae.kim/OneDrive - West Point/AY22 SE370/Block 3/Lesson 17 - Data Import & Tidy/data")
 
-library(tidyverse)
+
 library(tidyr)
 library(readr)
 library(jsonlite)
@@ -16,6 +17,8 @@ df <- readxl::read_xlsx("APFT_data.xlsx")
 
 #txt
 data <- read.table('Messy_Data.txt')
+
+
 
 #json (JavaScript Object Notation)
 result <- read_json("nhl_game.json")
@@ -41,7 +44,15 @@ df <- data.frame(name, push_up, run, sit_up, stringsAsFactors = FALSE)
 # Gather this data so that it only has 3 columns -- one for name,
 # one for event, and one for score.
 
-df <- gather(df, push_up, run, sit_up, key = "event", value = "score")
+# Used to use gather which was replaced by pivot_longer which is easier to use, 
+# and has more features
+
+#df <- gather(df, push_up, run, sit_up, key = 'event', value = 'score')
+
+df <- pivot_longer(df, cols =c(push_up, run, sit_up), names_to = "event",
+                   values_to = "score")
+
+
 
 # Why might this format useful?
 
@@ -50,7 +61,13 @@ df <- gather(df, push_up, run, sit_up, key = "event", value = "score")
 # Spread the data so it's back to it original format (5 rows with 
 # 4 columns)
 
-df <- spread(df, event, score)
+
+# Used to use spread which was replaced by pivot_wider which is easier to use, 
+# and has more features
+
+#df <- spread(df, event, score) 
+
+df <- pivot_wider(df, names_from = 'event', values_from = 'score')
 
 # Why might this format useful?
 
@@ -69,8 +86,11 @@ str(billboard)
 head(billboard)
 
 # Tidy the dataset using gather().
-# Consolidate all the week columns into a single column
-billboard2 <- gather(billboard, week, rank, wk1:wk76)
+# Consolidate all the week columns into a single column using pivot_longer
+
+#billboard2 <- gather(billboard, week, rank, wk1:wk76)
+
+billboard2 <- pivot_longer(billboard, cols = wk1:wk76, names_to = 'week', values_to = 'rank')
 
 # Get rid of the missing values
 billboard2 <- drop_na(billboard2, rank)
