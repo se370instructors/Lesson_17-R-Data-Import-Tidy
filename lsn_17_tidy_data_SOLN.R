@@ -16,7 +16,7 @@ df <- read.csv("APFT_data.csv")
 df <- readxl::read_xlsx("APFT_data.xlsx")
 
 #txt
-data <- read.table('Messy_Data.txt')
+data <- read.table('Messy_Data.txt', fill = TRUE)
 
 
 
